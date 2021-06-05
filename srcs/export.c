@@ -34,70 +34,65 @@ void	update_var_by_name(t_params *p, char *new_var, char *value)
 	return ;
 }
 
-int	skip_before_needle(t_params *p, char **new, char *var, int len)
+char	**export_split(char *str)
+{
+	int		i;
+	char	**res;
+	char	*cpy;
+
+	i = 0;
+	cpy = ft_strdup(str);
+	res = ft_malloc(sizeof(char *) * 3);
+	res[2] = NULL;
+	while (cpy[i] != '\0')
+	{
+		if (cpy[i] == '=')
+			break ;
+		i++;
+	}
+	cpy[i] = '\0';
+	res[0] = ft_strdup(cpy);
+	res[1] = ft_strdup(cpy + i + 1);
+	free(cpy);
+	return (res);
+}
+
+void	free_check_var(char **check_var)
 {
 	int	i;
 
 	i = 0;
-	while (p->env[i] != NULL)
+	while (check_var != NULL && check_var[i] != NULL)
 	{
-		if (ft_strncmp(p->env[i], var, len) == 0)
-			break ;
-		new[i] = p->env[i];
+		free(check_var[i]);
 		i++;
 	}
-	return (i);
-}
-
-int	unset_var(char *var, t_params *p)
-{
-	int		i;
-	int		len;
-	char	**new;
-	int		arr_len;
-
-	arr_len = ft_arrlen(p->env);
-	new = ft_malloc(sizeof(char *) * arr_len);
-	i = 0;
-	len = ft_strlen(var);
-	i = skip_before_needle(p, new, var, len);
-	if (arr_len == i)
-	{
-		free(new);
-		return (0);
-	}
-	while (p->env[i + 1] != NULL)
-	{
-		new[i] = p->env[i + 1];
-		i++;
-	}
-	new[i] = NULL;
-	free(p->env);
-	p->env = new;
-	return (0);
+	if (check_var != NULL)
+		free(check_var);
 }
 
 int	my_export(char **input, t_params *p)
 {
 	int		i;
 	char	**new_var;
+	int		j;
 
 	i = ft_arrlen(input);
-	if (i >= 1)
-		new_var = ft_split(input[1], '=');
-	else
-		return (0);
-	if (ft_arrlen(new_var) >= 2)
+	if (i <= 1)
+		return (1);
+	j = 1;
+	while (input[j] != NULL)
 	{
+		new_var = export_split(input[j]);
 		if (!check_var(new_var[0]))
 			return (write_error("minishell v1: export: `") && write_error
-				(input[1]) && write_error("': not a valid identifier\n"));
+				(input[j]) && write_error("': not a valid identifier\n"));
 		else if (get_var_by_name(p->env, new_var[0]) != NULL)
 			update_var_by_name(p, new_var[0], new_var[1]);
 		else
 			add_var(p, new_var[0], new_var[1]);
-		return (0);
+		free_check_var(new_var);
+		j++;
 	}
-	else
-		return (1);
+	return (0);
 }

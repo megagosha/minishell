@@ -17,9 +17,9 @@ t_params	*g_p;
 char	*check_other_path(t_ncmd *cmd, t_params *p, char **exec_paths)
 {
 	if (file_exist(cmd->argv[0]) && ft_strchr("./", cmd->argv[0][0]))
-		return (cmd->argv[0]);
+		return (free_exec_path(cmd->argv[0], exec_paths));
 	else
-		return (NULL);
+		return (free_exec_path(NULL, exec_paths));
 }
 
 int	file_exist(char *filename)
@@ -54,7 +54,7 @@ char	*get_exec_path(t_params *p, t_ncmd *cmd, char **exec_paths)
 		if (file_exist(str))
 		{
 			free(buf);
-			return (str);
+			return (free_exec_path(str, exec_paths));
 		}
 		free(buf);
 		free(str);
@@ -65,25 +65,25 @@ char	*get_exec_path(t_params *p, t_ncmd *cmd, char **exec_paths)
 
 int	my_exec(t_params *p)
 {
-	t_ncmd	*res;
-	t_pipe	*pi;
+	t_tok	*beg;
 
-	pi = ft_malloc(sizeof(t_pipe));
-	res = ft_malloc(sizeof(t_ncmd));
-	if (prep(pi))
+	if (prep(g_p->pipe))
 		return (EXIT_FAILURE);
+	beg = g_p->tok;
 	while (g_p->tok)
 	{
-		init_cmd(res, p->env);
-		if (exec_cmd(res, pi))
+		init_cmd(g_p->cmd, p->env);
+		if (exec_cmd(g_p->cmd, g_p->pipe))
 			return (EXIT_FAILURE);
 	}
+	free_tok(beg);
 	return (EXIT_SUCCESS);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	char		*line;
+	char		*tmp;
 
 	g_p = malloc(sizeof(t_params));
 	signal(SIGINT, &sigint);
@@ -92,11 +92,16 @@ int	main(int argc, char **argv, char **envp)
 	init_params(g_p, envp);
 	while (get_command(&line, g_p))
 	{
+		if (line == NULL)
+			continue ;
 		g_p->tok = NULL;
-		parse(g_p, ft_strtrim(line, " "));
+		tmp = ft_strtrim(line, " ");
+		parse(g_p, tmp);
+		if (tmp != NULL)
+			free(tmp);
 		free(line);
 		line = NULL;
-		free_tok(g_p->tok);
+		tmp = NULL;
 	}
 	return (0);
 }

@@ -27,7 +27,22 @@ int	check_keys(t_params *t)
 	else if (ft_memcmp(t->buf, t->term->kr, t->ch_read + 1) == 0
 		|| ft_memcmp(t->buf, t->term->kl, t->ch_read + 1) == 0
 		|| ft_memcmp(t->buf, "\t", 1) == 0)
+	{
+		t_print(t->term->sound);
 		return (1);
+	}
+	return (0);
+}
+
+int	check_exit(const char *buf, const char *str, t_params *t)
+{
+	if ((buf != NULL && buf[0] == 4) && (str != NULL && str[0] !='\0'))
+	{
+		t_print(t->term->sound);
+		return (1);
+	}
+	else if (buf != NULL && buf[0] == 4)
+		gracefull_exit(g_p);
 	return (0);
 }
 
@@ -41,10 +56,8 @@ int	get_command(char **line, t_params *t)
 		t->ch_read = read(STDIN_FILENO, &t->buf, 99);
 		if (t->ch_read < 0)
 			break ;
-		if (t->buf[0] == 4)
-			exit(0);
 		t->buf[t->ch_read] = '\0';
-		if (check_keys(t) == 1)
+		if (check_exit(t->buf, t->res, t) || check_keys(t) == 1)
 			continue ;
 		else if (ft_strncmp(t->buf, "\n", t->ch_read + 1) != 0)
 		{

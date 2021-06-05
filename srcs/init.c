@@ -41,6 +41,11 @@ void	init_more_params(t_params *params)
 	params->hist_pos = -1;
 	params->total_hist = 0;
 	params->res = NULL;
+	g_p->pipe = ft_malloc(sizeof(t_pipe));
+	g_p->cmd = ft_malloc(sizeof(t_ncmd));
+	g_p->cmd->cmd = NULL;
+	g_p->cmd->argv = NULL;
+	g_p->cmd->envp = g_p->env;
 	interrogate_terminal(params->term);
 	update_ps_one(params);
 	change_term_config();

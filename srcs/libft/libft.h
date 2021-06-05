@@ -74,4 +74,5 @@ char			*ft_str_replace(const char *string, char *needle,
 					   char *replace);
 int				ft_arrlen(char **args);
 void			*ft_malloc(int size);
+void			ft_free_char_arr(char **arr);
 #endif

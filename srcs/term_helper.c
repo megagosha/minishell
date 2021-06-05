@@ -10,7 +10,7 @@ int	ft_putc(int c)
 
 int	t_print(char *str)
 {
-	ft_putstr_fd(str, STDIN_FILENO);
+	ft_putstr_fd(str, STDOUT_FILENO);
 	return (ft_strlen(str));
 }
 

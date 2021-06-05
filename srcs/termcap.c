@@ -12,6 +12,7 @@ void	interrogate_terminal(t_term *term)
 	term->clear = tgetstr("cd", NULL);
 	term->cr_zero = tgetstr("cr", NULL);
 	term->delete_char = tgetstr("dc", NULL);
+	term->sound = tgetstr("bl", NULL);
 	term->up = tgetstr("up", NULL);
 	change_term_config();
 }
@@ -49,7 +50,7 @@ void	change_term_config(void)
 	tputs(g_p->term->ks, STDIN_FILENO, ft_putc);
 }
 
-void	gracefull_exit(t_params *p)
+void 	gracefull_exit(t_params *p)
 {
 	default_terminal();
 	exit(EXIT_SUCCESS);

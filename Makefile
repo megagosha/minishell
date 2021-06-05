@@ -2,7 +2,7 @@ NAME = minishell
 
 LIBFT = libft.a
 
-FLAGS = gcc -O2 $(HEADERS)
+FLAGS = gcc $(HEADERS)
 
 LIBFHT_H = -I srcs/libft/
 MINISHELL_H = -I includes/
@@ -38,7 +38,8 @@ CFILES = main.c\
 		 exec_prep.c \
 		 redirections.c \
 		 pipe.c \
-		 exec_tools.c
+		 exec_tools.c \
+		 unset.c
 
 CFIND = $(CFILES:%=$(SRC_DIR)%)
 

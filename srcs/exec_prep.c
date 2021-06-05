@@ -34,8 +34,16 @@ t_tok	*skip_redirects(t_tok *tok)
 
 void	init_cmd(t_ncmd *cmd, char **envp)
 {
-	cmd->cmd = NULL;
-	cmd->argv = NULL;
+	if (cmd->argv != NULL)
+	{
+		free(cmd->argv);
+		cmd->argv = NULL;
+	}
+	if (cmd->cmd_path != NULL)
+	{
+		free(cmd->cmd_path);
+		cmd->cmd_path = NULL;
+	}
 	cmd->envp = envp;
 }
 
@@ -45,7 +53,7 @@ t_tok	*get_args(t_tok *tok, t_ncmd *cmd)
 	t_tok	*cp;
 
 	i = count_args(tok);
-	cmd->argv = ft_malloc(sizeof(char *) * (i + 2));
+	g_p->cmd->argv = ft_malloc(sizeof(char *) * (i + 2));
 	i = 0;
 	cp = tok;
 	while (cp)
@@ -53,14 +61,14 @@ t_tok	*get_args(t_tok *tok, t_ncmd *cmd)
 		if (i > 0 && cp->type != ARG)
 			break ;
 		if (i == 0)
-			cmd->cmd = cp->str;
-		cmd->argv[i] = cp->str;
+			g_p->cmd->cmd = cp->str;
+		g_p->cmd->argv[i] = cp->str;
 		i++;
 		if (cp->next == NULL || cp->next->type != ARG)
 			break ;
 		cp = cp->next;
 	}
-	cmd->argv[i] = NULL;
+	g_p->cmd->argv[i] = NULL;
 	return (cp);
 }
 

@@ -36,6 +36,7 @@ typedef struct s_term
 	char	*kr;
 	char	*kl;
 	char	*ks;
+	char	*sound;
 	char	*cr_zero;
 	char	*ke;
 	char	*cr_left;
@@ -72,6 +73,8 @@ typedef struct s_params {
 	t_tok			*tok;
 	t_term			*term;
 	t_list			*hist;
+	t_pipe			*pipe;
+	t_ncmd			*cmd;
 	char			**env;
 	char			*ps_one;
 	char			**exec_paths;
@@ -87,6 +90,7 @@ typedef struct s_params {
 }	t_params;
 
 extern t_params	*g_p;
+char	*free_exec_path(char *str, char **exec);
 int		prepare_command(t_ncmd *res, t_pipe *pi);
 int		prep(t_pipe *pi);
 t_tok	*skip_redirects(t_tok *tok);

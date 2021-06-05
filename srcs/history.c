@@ -45,6 +45,8 @@ int	ft_key(int dir)
 	g_p->hist_pos = hist_change(g_p->hist_pos, g_p->total_hist, dir);
 	if (prev_pos == g_p->hist_pos)
 		return (1);
+	if (ft_lstgetnum(g_p->hist, prev_pos) == NULL)
+		return (1);
 	g_p->output = clear_line(g_p->term, ft_lstgetnum(g_p->hist, prev_pos));
 	g_p->res = ft_strdup(ft_lstgetnum(g_p->hist, g_p->hist_pos));
 	g_p->output += t_print(g_p->ps_one);

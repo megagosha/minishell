@@ -95,8 +95,6 @@ void	get_new_tok(t_params *params, char *line)
 
 int	parse(t_params *params, char *line)
 {
-	t_tok	*tok;
-
 	if (!line)
 		return (1);
 	if (check_quotes(line))

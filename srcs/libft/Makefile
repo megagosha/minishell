@@ -14,7 +14,7 @@ NAME = libft.a
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -O2
+CFLAGS = -Wall -Wextra -Werror
 
 # LDFLAGS=-L.
 
@@ -33,7 +33,7 @@ SRCS = ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c \
 		ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c \
 		ft_lstclear.c ft_lstiter.c ft_lstmap.c \
 		ft_strarrcpy.c ft_listgetnum.c ft_str_replace.c \
-		ft_arrlen.c ft_malloc.c
+		ft_arrlen.c ft_malloc.c ft_free_char_arr.c
 
 OBJS = ${SRCS:.c=.o}
 
