@@ -161,4 +161,5 @@ int		skipslash(t_params *params, char **line, int *i, int q);
 void	gracefull_exit(t_params *p);
 int		close_fd(t_tok *rdct);
 int		get_status(t_params *params, char **line, int *i);
+int		check_var(char *new_var);
 #endif

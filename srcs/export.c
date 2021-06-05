@@ -89,7 +89,10 @@ int	my_export(char **input, t_params *p)
 		return (0);
 	if (ft_arrlen(new_var) >= 2)
 	{
-		if (get_var_by_name(p->env, new_var[0]) != NULL)
+		if (!check_var(new_var[0]))
+			return (write_error("minishell v1: export: `") && write_error
+				(input[1]) && write_error("': not a valid identifier\n"));
+		else if (get_var_by_name(p->env, new_var[0]) != NULL)
 			update_var_by_name(p, new_var[0], new_var[1]);
 		else
 			add_var(p, new_var[0], new_var[1]);
