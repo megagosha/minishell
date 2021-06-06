@@ -17,7 +17,7 @@ t_params	*g_p;
 char	*check_other_path(t_ncmd *cmd, t_params *p, char **exec_paths)
 {
 	if (file_exist(cmd->argv[0]) && ft_strchr("./", cmd->argv[0][0]))
-		return (free_exec_path(cmd->argv[0], exec_paths));
+		return (free_exec_path(ft_strdup(cmd->argv[0]), exec_paths));
 	else
 		return (free_exec_path(NULL, exec_paths));
 }
@@ -72,9 +72,16 @@ int	my_exec(t_params *p)
 	beg = g_p->tok;
 	while (g_p->tok)
 	{
+		check_env(g_p);
+		if (sort_rdct(g_p) == -1)
+		{
+			g_p->status = 1;
+			return (1);
+		}
 		init_cmd(g_p->cmd, p->env);
 		if (exec_cmd(g_p->cmd, g_p->pipe))
 			return (EXIT_FAILURE);
+		g_p->pid = 0;
 	}
 	free_tok(beg);
 	return (EXIT_SUCCESS);

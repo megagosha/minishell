@@ -28,11 +28,15 @@ int	open_redirections(t_tok *tok)
 	{
 		if (tok->type == L_RDCT)
 		{
+			if (tok->next->str[0] == '\0')
+				return (t_printerr("bash: ambiguous redirect\n"));
 			if (tok->prev != NULL)
 				tok->str = open_file(tok->str, tok->next->str, O_RDONLY, -1);
 		}
 		else
 		{
+			if (tok->next->str[0] == '\0')
+				return (t_printerr("bash: ambiguous redirect\n"));
 			if (tok->type == DR_RDCT)
 				tok->str = open_file(tok->str, tok->next->str, of(1), 0644);
 			if (tok->next != NULL)

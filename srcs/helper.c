@@ -42,6 +42,6 @@ char 	*free_exec_path(char *str, char **exec)
 	if (exec)
 		ft_free_char_arr(exec);
 	if (str)
-		return (ft_strdup(str));
+		return (str);
 	return (NULL);
 }

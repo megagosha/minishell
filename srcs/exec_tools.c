@@ -15,7 +15,7 @@ void	print_error(char *str, int type)
 	ft_putstr_fd("\n", STDERR_FILENO);
 }
 
-void	stopped_or_exit(t_ncmd *res, int status, int pid)
+void	stopped_or_exit(t_ncmd *res, int status)
 {
 	if (WIFEXITED(status))
 	{
@@ -27,7 +27,7 @@ void	stopped_or_exit(t_ncmd *res, int status, int pid)
 	else if (WIFSTOPPED(status))
 	{
 		printf("%s stopped and killed. Continue is not supported\n", res->cmd);
-		kill(pid, SIGINT);
+		kill(g_p->pid, SIGINT);
 	}
 	return ;
 }

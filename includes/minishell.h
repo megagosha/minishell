@@ -83,6 +83,7 @@ typedef struct s_params {
 	int				ch_read;
 	int				check;
 	char			*res;
+	pid_t			pid;
 	int				status;
 	int				hist_pos;
 	int				total_hist;
@@ -118,7 +119,7 @@ void	check_builin(t_ncmd *res);
 void	check_errno_in_child(t_ncmd *res);
 int		count_args(t_tok *tok);
 int		of(int i);
-void	stopped_or_exit(t_ncmd *res, int status, int pid);
+void	stopped_or_exit(t_ncmd *res, int status);
 char	*get_pwd(void);
 void	put_error(char *str);
 void	print_error(char *str, int type);

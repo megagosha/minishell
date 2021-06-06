@@ -45,10 +45,12 @@ void	init_more_params(t_params *params)
 	g_p->cmd = ft_malloc(sizeof(t_ncmd));
 	g_p->cmd->cmd = NULL;
 	g_p->cmd->argv = NULL;
+	g_p->cmd->cmd_path = NULL;
 	g_p->cmd->envp = g_p->env;
 	interrogate_terminal(params->term);
 	update_ps_one(params);
 	change_term_config();
+	g_p->pid = 0;
 }
 
 void	init_params(t_params *params, char **envp)

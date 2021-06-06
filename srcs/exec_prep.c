@@ -4,12 +4,6 @@ int	prep(t_pipe *pi)
 {
 	if (check_sep(g_p->tok))
 		return (g_p->status = 258);
-	if (sort_rdct(g_p) == -1)
-	{
-		g_p->status = 1;
-		return (1);
-	}
-	//check_env(g_p);//
 	pi->cur_pipe = 0;
 	if (g_p->tok == NULL || g_p->tok->str == NULL)
 		return (1);
@@ -34,17 +28,18 @@ t_tok	*skip_redirects(t_tok *tok)
 
 void	init_cmd(t_ncmd *cmd, char **envp)
 {
-	if (cmd->argv != NULL)
+	if (cmd != NULL && cmd->argv != NULL)
 	{
 		free(cmd->argv);
 		cmd->argv = NULL;
 	}
-	if (cmd->cmd_path != NULL)
+	if (cmd != NULL && cmd->cmd_path != NULL)
 	{
 		free(cmd->cmd_path);
 		cmd->cmd_path = NULL;
 	}
-	cmd->envp = envp;
+	if (cmd != NULL)
+		cmd->envp = envp;
 }
 
 t_tok	*get_args(t_tok *tok, t_ncmd *cmd)
@@ -52,7 +47,6 @@ t_tok	*get_args(t_tok *tok, t_ncmd *cmd)
 	int		i;
 	t_tok	*cp;
 
-	check_env(g_p);
 	i = count_args(tok);
 	g_p->cmd->argv = ft_malloc(sizeof(char *) * (i + 2));
 	i = 0;

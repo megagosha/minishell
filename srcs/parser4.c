@@ -68,10 +68,9 @@ int	sort_rdct(t_params *params)
 {
 	t_tok	*tok;
 	t_tok	*rdct;
-	t_tok	*tmp;
 
 	tok = params->tok;
-	while (tok)
+	while (tok && tok->type != SEMIC)
 	{
 		if (is_redirect(tok->type))
 		{

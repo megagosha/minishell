@@ -10,7 +10,7 @@
 //7. if redirect dup2 redirect to in or out.
 //8. if redirect in pipe connect to pipe. */
 
-int	check_parent(t_ncmd *res, int status, int wait_res, int pid)
+int	check_parent(t_ncmd *res, int status, int wait_res)
 {
 	if (wait_res == -1)
 	{
@@ -30,7 +30,7 @@ int	check_parent(t_ncmd *res, int status, int wait_res, int pid)
 			g_p->status = WTERMSIG(status);
 	}
 	else
-		stopped_or_exit(res, status, pid);
+		stopped_or_exit(res, status);
 	return (0);
 }
 
@@ -62,14 +62,14 @@ void	check_child(t_ncmd *res)
 	}
 }
 
-void	if_parent(t_pipe *pi, pid_t pid, t_ncmd *res)
+void	if_parent(t_pipe *pi, t_ncmd *res)
 {
 	int	wait_res;
 	int	status;
 
-	wait_res = waitpid(pid, &status, WUNTRACED);
+	wait_res = waitpid(g_p->pid, &status, WUNTRACED);
 	change_term_config();
-	check_parent(res, status, wait_res, pid);
+	check_parent(res, status, wait_res);
 	check_builin(res);
 	if (if_pipe_left(g_p->tok))
 	{
@@ -115,21 +115,19 @@ void	if_child(t_pipe *pi, t_ncmd *res)
 
 int	exec_cmd(t_ncmd *res, t_pipe *pi)
 {
-	pid_t	pid;
-
 	if (g_p->tok->type == CMD && (g_p->tok->prev == NULL
 			|| !is_redirect(g_p->tok->prev->type)))
 	{
 		if (prepare_command(res, pi))
 			return (EXIT_FAILURE);
-		pid = fork();
+		g_p->pid = fork();
 		default_terminal();
-		if (pid < 0)
+		if (g_p->pid < 0)
 			exit(EXIT_FAILURE);
-		else if (pid == 0)
+		else if (g_p->pid == 0)
 			if_child(pi, res);
-		else if (pid > 0)
-			if_parent(pi, pid, res);
+		else if (g_p->pid > 0)
+			if_parent(pi, res);
 	}
 	if (g_p->tok != NULL)
 	{

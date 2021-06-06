@@ -14,16 +14,23 @@
 
 void	sigint(int sig)
 {
-	if (g_p->status != 131 && g_p->status != 130)
+	if (g_p->pid == 0)
 	{
-		ft_putstr_fd("\n", STDOUT_FILENO);
-		ft_putstr_fd(g_p->ps_one, STDOUT_FILENO);
+		g_p->output = -1;
+		if (g_p->res != NULL)
+			free(g_p->res);
+		g_p->res = NULL;
+		g_p->output += t_print("\n");
+		g_p->output += t_print(g_p->ps_one);
+		g_p->status = 1;
 	}
+	else
+		ft_putstr_fd("\n", STDOUT_FILENO);
 	return ;
 }
 
 void	sigstop(int sig)
-{ 
+{
 	return ;
 }
 

@@ -48,8 +48,7 @@ int	check_exit(const char *buf, const char *str, t_params *t)
 
 int	get_command(char **line, t_params *t)
 {
-	if (g_p->status != 130)
-		t->output += t_print(t->ps_one);
+	t->output += t_print(t->ps_one);
 	t->ch_read = 0;
 	while (t->ch_read >= 0)
 	{
