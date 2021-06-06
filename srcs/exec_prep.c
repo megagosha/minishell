@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 int	prep(t_pipe *pi)
 {
@@ -9,7 +9,7 @@ int	prep(t_pipe *pi)
 		g_p->status = 1;
 		return (1);
 	}
-	check_env(g_p);
+	//check_env(g_p);//
 	pi->cur_pipe = 0;
 	if (g_p->tok == NULL || g_p->tok->str == NULL)
 		return (1);
@@ -52,6 +52,7 @@ t_tok	*get_args(t_tok *tok, t_ncmd *cmd)
 	int		i;
 	t_tok	*cp;
 
+	check_env(g_p);
 	i = count_args(tok);
 	g_p->cmd->argv = ft_malloc(sizeof(char *) * (i + 2));
 	i = 0;

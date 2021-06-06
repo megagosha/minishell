@@ -39,6 +39,9 @@ int	check_var(char *new_var)
 
 char 	*free_exec_path(char *str, char **exec)
 {
-	ft_free_char_arr(exec);
-	return (str);
+	if (exec)
+		ft_free_char_arr(exec);
+	if (str)
+		return (ft_strdup(str));
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: tlaraine <tlaraine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 15:46:57 by tlaraine          #+#    #+#             */
-/*   Updated: 2021/05/30 18:10:19 by tlaraine         ###   ########.fr       */
+/*   Updated: 2021/06/06 15:13:41 by tlaraine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	check_env(t_params *params)
 	int		i;
 
 	tok = params->tok;
-	while (tok)
+	while (tok && tok->type != SEMIC)
 	{
 		i = 0;
 		while ((tok->str)[i])

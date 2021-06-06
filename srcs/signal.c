@@ -6,7 +6,7 @@
 /*   By: tlaraine <tlaraine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 12:26:38 by tlaraine          #+#    #+#             */
-/*   Updated: 2021/06/05 15:04:15 by tlaraine         ###   ########.fr       */
+/*   Updated: 2021/06/06 14:31:55 by tlaraine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	sigint(int sig)
 }
 
 void	sigstop(int sig)
-{
+{ 
 	return ;
 }
 
