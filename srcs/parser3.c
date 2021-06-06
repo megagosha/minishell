@@ -51,11 +51,13 @@ void	set_type(t_tok *tok)
 char	*rm_char(char *line, int i)
 {
 	char	*new;
-	int		size;
+	char	*tmp;
 
 	new = ft_strdup(line);
 	new[i] = '\0';
+	tmp = new;
 	new = ft_strjoin(new, line + i + 1);
+	free(tmp);
 	free(line);
 	return (new);
 }

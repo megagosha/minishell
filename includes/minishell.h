@@ -101,7 +101,7 @@ int		my_exec(t_params *params);
 void	add_var(t_params *p, char *new_var, char *value);
 void	ft_env(char **env);
 int		my_export(char **input, t_params *p);
-int		unset_var(char *var, t_params *p);
+int		unset_var(char **var, t_params *p);
 void	sigint(int sig);
 void	init_terminal_data (t_params *p);
 void	default_terminal(void);

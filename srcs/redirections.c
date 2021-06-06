@@ -58,7 +58,7 @@ void	check_builin(t_ncmd *res)
 	if (ft_strncmp(res->argv[0], "export", 6) == 0)
 		g_p->status = my_export(res->argv, g_p);
 	if (ft_strncmp(res->argv[0], "unset", 5) == 0)
-		g_p->status = unset_var(res->argv[1], g_p);
+		g_p->status = unset_var(res->argv, g_p);
 }
 
 int	is_redirect(int i)
