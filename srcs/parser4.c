@@ -6,7 +6,7 @@
 /*   By: tlaraine <tlaraine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 15:46:57 by tlaraine          #+#    #+#             */
-/*   Updated: 2021/05/30 18:10:07 by tlaraine         ###   ########.fr       */
+/*   Updated: 2021/06/08 22:22:56 by tlaraine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	close_fd(t_tok *rdct)
 		{
 			if (rdct->next != NULL && rdct->next->str != NULL)
 			{
-				fd = ft_atoi(rdct->next->str);
+				fd = ft_atoi(rdct->str);
 				if (fd > 0)
 					close(fd);
 			}

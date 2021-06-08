@@ -6,7 +6,7 @@
 /*   By: tlaraine <tlaraine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 15:46:57 by tlaraine          #+#    #+#             */
-/*   Updated: 2021/06/06 15:13:41 by tlaraine         ###   ########.fr       */
+/*   Updated: 2021/06/09 01:00:29 by tlaraine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,13 @@ void	check_env(t_params *params)
 		}
 		tok = tok->next;
 	}
+}
+
+void	parse_quotes(t_params *params, char **line, int *i, char q)
+{
+	int	j;
+
+	j = --(*i);
+	skip_quotes(*line, i, q, 0);
+	(params->i) += (*i) - j;
 }

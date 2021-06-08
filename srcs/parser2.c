@@ -6,21 +6,39 @@
 /*   By: tlaraine <tlaraine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 15:46:57 by tlaraine          #+#    #+#             */
-/*   Updated: 2021/05/30 16:09:40 by tlaraine         ###   ########.fr       */
+/*   Updated: 2021/06/09 01:02:31 by tlaraine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	skip_quotes(char *line, int *i, char q)
+int	skip_quotes(char *line, int *i, char q, int c)
 {
-	if (*i && line[(*i) - 1] == '\\')
-		return ;
-	while (line[(*i)++])
+	int	j;
+
+	if (*i > 0 && line[(*i) - 1] == '\\')
+		return (!(++(*i)));
+	(*i)++;
+	if (q == '\'')
 	{
-		if (line[(*i) - 1] != '\\' && line[*i] == q)
-			return ;
+		!(j = 0) && (c = (*i));
+		while (line[c])
+		{
+			if (line[c] == '\'')
+				(++j) && ((*i) = c);
+			c++;
+		}
+		if (j)
+			return (0);
+		return (1);
 	}
+	while (line[(*i)])
+	{
+		if ((*i) && line[(*i) - 1] && (line[(*i) - 1] != '\\' && line[(*i)] == q))
+			return (0);
+		(*i)++;
+	}
+	return (1);
 }
 
 int	write_error(char *str)
@@ -74,8 +92,7 @@ void	get_quotes(t_params *params, char **line, int *i, char q)
 		*line = rm_char(*line, *i);
 		params->i++;
 		if (q == '\'')
-			while ((*line)[*i] && (*line)[*i] != q)
-				++(params->i) && ++(*i);
+			parse_quotes(params, line, i, q);
 		else if (q == '\"')
 		{
 			while ((*line)[*i] && (*line)[*i] != q)

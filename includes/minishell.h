@@ -149,7 +149,7 @@ char	*strjoinf(char *str1, char *str2);
 int		skipspace(t_params *params, char *line);
 int		parse(t_params *params, char *line);
 int		check_quotes(char *line);
-void	skip_quotes(char *line, int *i, char q);
+int		skip_quotes(char *line, int *i, char q, int c);
 void	get_sep(t_params *params, char *line);
 void	set_new_tok(t_params *params, char *str);
 void	get_new_tok(t_params *params, char *line);
@@ -167,4 +167,5 @@ void	gracefull_exit(t_params *p);
 int		close_fd(t_tok *rdct);
 int		get_status(t_params *params, char **line, int *i);
 int		check_var(char *new_var);
+void	parse_quotes(t_params *params, char **line, int *i, char q);
 #endif

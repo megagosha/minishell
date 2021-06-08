@@ -6,7 +6,7 @@
 /*   By: tlaraine <tlaraine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 15:31:36 by tlaraine          #+#    #+#             */
-/*   Updated: 2021/05/30 19:03:17 by tlaraine         ###   ########.fr       */
+/*   Updated: 2021/06/09 00:56:35 by tlaraine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,14 @@
 int	check_quotes(char *line)
 {
 	int		i;
+	char	q;
 
 	i = 0;
 	while (line[i])
 	{
 		if (line[i] == '\'' || line[i] == '\"')
-		{
-			skip_quotes(line, &i, line[i]);
-			if (!line[i])
+			if (skip_quotes(line, &i, line[i], 0))
 				return (write_error("bash: syntax error open quotes\n"));
-		}
 		i++;
 	}
 	return (0);
