@@ -12,6 +12,18 @@
 
 #include "../includes/minishell.h"
 
+int	quotes(const char *line, int *i, char q)
+{
+	while (line[(*i)])
+	{
+		if ((*i) && line[(*i) - 1] && (line[(*i) - 1] != '\\'
+				&& line[(*i)] == q))
+			return (0);
+		(*i)++;
+	}
+	return (1);
+}
+
 int	skip_quotes(char *line, int *i, char q, int c)
 {
 	int	j;
@@ -32,19 +44,7 @@ int	skip_quotes(char *line, int *i, char q, int c)
 			return (0);
 		return (1);
 	}
-	while (line[(*i)])
-	{
-		if ((*i) && line[(*i) - 1] && (line[(*i) - 1] != '\\' && line[(*i)] == q))
-			return (0);
-		(*i)++;
-	}
-	return (1);
-}
-
-int	write_error(char *str)
-{
-	ft_putstr_fd(str, 2);
-	return (1);
+	return (quotes(line, i, q));
 }
 
 void	set_new_tok(t_params *params, char *str)

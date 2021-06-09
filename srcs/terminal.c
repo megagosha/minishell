@@ -42,7 +42,10 @@ int	check_exit(const char *buf, const char *str, t_params *t)
 		return (1);
 	}
 	else if (buf != NULL && buf[0] == 4)
+	{
+		t_print("\n");
 		gracefull_exit(g_p);
+	}
 	return (0);
 }
 

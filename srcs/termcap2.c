@@ -1,5 +1,11 @@
 #include "minishell.h"
 
+int	write_error(char *str)
+{
+	ft_putstr_fd(str, 2);
+	return (1);
+}
+
 void	go_up_new_lines(int new_lines)
 {
 	if (new_lines > 1)
